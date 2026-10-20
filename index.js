@@ -189,6 +189,58 @@ res.send(result);
 
 
 
+app.patch('/users/:id', async (req, res) =>{
+   
+  const id = req.params.id;
+  const updatedUser = req.body;
+
+  console.log("updating user id ",id,'with',updatedUser);
+
+
+  const filter = {
+
+    _id : new ObjectId(id)
+
+  }
+
+
+const options = {upsert : true};
+const updateDoc = {
+ 
+  $set : {
+
+    name : updatedUser.name ,
+    email : updatedUser.email
+
+  }
+
+
+}
+
+
+
+
+const result = await users.updateOne(filter, updateDoc , options)
+
+res.send(result);
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  app.delete('/users/:id', async (req, res) =>{
 
