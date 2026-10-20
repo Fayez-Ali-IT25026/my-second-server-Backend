@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors'
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
  import 'dotenv/config'
 
 
@@ -112,6 +112,112 @@ app.get('/',(req,res)=>{
 //     res.status(500).send({ message: 'Failed to fetch users' });
 //   }
 // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  app.post('/users',(req,res)=>{
+  
+// const newUser = req.body
+//     console.log( newUser)
+//     res.send('WELL DONE')
+//      res.send({success:true , message : 'user added'})
+//  })
+
+
+app.post('/users',async(req,res)=>{
+  
+const newUser = req.body
+    console.log( newUser)
+    // res.send('WELL DONE')
+    //  res.send({success:true , message : 'user added'})
+
+
+    const result = await users.insertOne(newUser);
+    res.send(result);
+ })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ app.get('/users/:id', async (req, res) =>{
+
+console.log('params in the server', req.params);
+const id = req.params.id ;
+
+
+const query = { _id : new ObjectId(id)};
+
+
+const result = await users.findOne(query);
+res.send(result);
+
+
+
+ })
+
+
+
+
+
+
+
+
+
+ app.delete('/users/:id', async (req, res) =>{
+
+
+const id = req.params.id ;
+
+
+const query = { _id : new ObjectId(id)};
+
+
+const result = await users.deleteOne(query);
+res.send(result);
+
+
+
+ })
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 
 
 
